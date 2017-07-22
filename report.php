@@ -1,5 +1,6 @@
 <!doctype html>
-<html><head>
+<html>
+<head>
 <meta charset="utf-8">
 <title>Report</title>
 	<link rel="icon" href="images/icon.png">
@@ -23,6 +24,30 @@
                 thaiyear: true
             }).datepicker("setDate", "0");
         });
+		
+		$(document).ready(function(){
+			$.ajax({
+				url:'GetProduct.php',
+				type:'POST',
+				dataType :'json',
+				success : function(result){
+					var tr = '';
+					$.each(result, function(index, element) {
+						tr = tr+'<tr>';
+						tr = tr+'<td>'+element.P_ID+'</td>';
+						tr = tr+'<td>'+element.Brand+'</td>';
+						tr = tr+'<td>'+element.Generation+'</td>';
+						tr = tr+'<td>'+element.Type+'</td>';
+						tr = tr+'<td>'+element.Price+'</td>';
+						tr = tr+'<td>'+element.Quantity +'</td>';
+						tr = tr+'</tr>';
+					});
+					$("#StockTable").empty();
+					$('#StockTable').append(tr);
+				}
+			});
+		});
+		
     </script>
 
 </head>
@@ -41,11 +66,29 @@
 		<h3>สินค้าใน Stock</h3>
 		<p>เช็คจำนวนสินค้าใน stock</p>
 		<hr>
+		<div id="reportStock">
+			<center><h3>ยอดคงเหลือ</h3></center>
+			<table class='table'>
+				<thead>
+				  <tr>
+					<th>รหัสสิ้นค้า</th>
+					<th>ยี่่ห้อ</th>
+					<th>รุ้น</th>
+					<th>ชนิด</th>
+					<th>ราคา</th>
+					<th>จำนวน</th>
+				  </tr>
+				</thead>
+				<tbody id="StockTable">
+
+				</tbody>
+			</table>
+		</div>
+		<button onClick='printDiv("reportStock")' class="btn btn-default">พิมพ์</button>
 	</div>
 
 	<div id="Order" class="tabcontent">
 		<h3>สินค้าเข้า-ออก</h3>
-		<p>เช็คดูการเข้าออกของสินค้า</p>
 		<p>เช็คดูการเข้าออกของสินค้า</p>
 		<hr>
 		<div class="form-group col-xs-6 col-sm-3">
@@ -80,8 +123,9 @@
 			<hr>
 			<div id="report">
 				<center><h3>รายงานผล</h3></center>
-				<p>ตั้งแต่วันที่ .... ถึง ....</p>
-				<p>ตั้งแต่วันที่ .... ถึง ....</p>
+				<p id="showDate"></p>
+				<p id="showIn"></p>
+				<p id="showOut"></p>
 				<table class='table'>
 					<thead>
 					  <tr>
@@ -101,7 +145,7 @@
 					</tbody>
 				</table>
 			</div> 
-			<button onClick="printToPDF()" class="btn btn-default">พิมพ์</button>
+			<button onClick='printDiv("report")' class="btn btn-default">พิมพ์</button>
 		</div>
 		
 		
@@ -130,6 +174,18 @@
 			var to = document.getElementById('inputdatepicker2').value;
 			var checkAllTime = document.getElementById('allTime').checked;
 			var selectShow = document.getElementById('selectShow').value;
+			
+			var str = 'ตั้งแต่เริ่ม ถึง ปัจจุบัน';
+			if(!checkAllTime){
+				str = 'ตั้งแต่ '+from +' ถึง '+to;
+			}
+			
+			$("#showDate").empty();
+			$('#showDate').append(str);
+			
+			var countIn = 0;
+			var conntOut = 0;
+			
 			$.ajax({
 				url:'GetDataReport.php',
 				type:'POST',
@@ -138,6 +194,11 @@
 				success : function(result){
 					var tr = '';
 					$.each(result, function(index, element) {
+						if(element.Status=='เข้า'){
+							countIn=countIn+parseInt(element.Quantity);
+						}else if(element.Status=='ออก'){
+							conntOut=conntOut+parseInt(element.Quantity);
+						}
 						tr = tr+'<tr>';
 						tr = tr+'<td>'+converseBCTOBE(element.Order_date)+'</td>';
 						tr = tr+'<td>'+element.O_ID+'</td>';
@@ -152,9 +213,24 @@
 					});
 					$("#mytable").empty();
 					$('#mytable').append(tr);
+					
+					$('#showIn').empty();
+					$('#showIn').append('สินค้าเข้าจำนวน '+countIn);
+					$('#showOut').empty();
+					$('#showOut').append('สินค้าออกจำนวน '+conntOut);
 				}
 			});
 			
+		}
+		
+		function printDiv(id){
+			var divPrint = document.getElementById(id);
+			var newWin=window.open('','Print-Window');
+			newWin.document.write('<html><head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"><script src="js/jquery.min.js"><\/script><script src="bootstrap/js/bootstrap.min.js"><\/script></head><body onload="window.print()">'+divPrint.innerHTML+'</body></html>');
+			newWin.document.close();
+			setTimeout(function(){
+				newWin.close();
+			},10);
 		}
 		
 		
@@ -173,9 +249,7 @@
 		}
 		document.getElementById("defaultOpen").click();
 		
-		function printToPDF(){
-			
-		}
+		
 	
 	</script>
 </body>
