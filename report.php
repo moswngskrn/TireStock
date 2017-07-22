@@ -28,7 +28,7 @@
 <body>
 	<div class="container">
 		<div style="background:#000000;padding:10px;color:#FFF" class="jumbotron">
-			<h1>Stock</h1>      
+			<h1>Report Stock</h1>      
 			<p>รายงานและสรุป</p>
 		</div>
 		
