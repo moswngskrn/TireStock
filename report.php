@@ -1,6 +1,5 @@
 <!doctype html>
-<html>
-<head>
+<html><head>
 <meta charset="utf-8">
 <title>Report</title>
 	<link rel="icon" href="images/icon.png">
@@ -8,7 +7,9 @@
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 	<script src="js/jquery.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-
+	
+	<link rel="stylesheet" href="css/style.css">
+	
 	<link href="dist/css/bootstrap-datepicker.css" rel="stylesheet" />
     <script src="dist/js/bootstrap-datepicker-custom.js"></script>
 	<script src="dist/locales/bootstrap-datepicker.th.min.js" charset="UTF-8"></script>
@@ -26,57 +27,86 @@
 
 </head>
 <body>
-	<div class="container">
-		<div style="background:#000000;padding:10px;color:#FFF" class="jumbotron">
-			<h1>Report Stock</h1>      
+
+	<div class="jumbotron">
+			<h1>Stock</h1>      
 			<p>รายงานและสรุป</p>
+	</div>
+	<div class="tab">
+		<button class="tablinks" onclick="openCity(event, 'Stock')" id="defaultOpen">สินค้าใน Stock</button>
+		<button class="tablinks" onclick="openCity(event, 'Order')">สินค้าเข้า-ออก</button>
+	</div>
+
+	<div id="Stock" class="tabcontent">
+		<h3>สินค้าใน Stock</h3>
+		<p>เช็คจำนวนสินค้าใน stock</p>
+		<hr>
+	</div>
+
+	<div id="Order" class="tabcontent">
+		<h3>สินค้าเข้า-ออก</h3>
+		<p>เช็คดูการเข้าออกของสินค้า</p>
+		<p>เช็คดูการเข้าออกของสินค้า</p>
+		<hr>
+		<div class="form-group col-xs-6 col-sm-3">
+			<label class="col-sm-4 col-form-label" for="inputdatepicker" >ตั้งแต่</label>
+			<input  id="inputdatepicker" class="datepicker col-sm-8" data-date-format="mm/dd/yyyy">
+		</div>
+
+		<div class="form-group col-xs-6 col-sm-3">
+			<label class="col-sm-4 col-form-label" for="inputdatepicker2" >ถึง</label>
+			<input id="inputdatepicker2" class="datepicker col-sm-8" data-date-format="mm/dd/yyyy">
+		</div>
+
+		<div class="form-group col-xs-6 col-sm-2">
+			<label class="form-check-label">
+				<input id="allTime" onClick="checkAllTime()" type="checkbox" class="form-check-input">
+				ทุกช่วง
+			</label>
+		</div>
+
+		<div class="form-group col-xs-6 col-sm-3">
+			<select class="form-control" id="selectShow">
+				<option>แสดงรายการทั้งหมด</option>
+				<option>สินค้าเข้า</option>
+				<option>สินค้าออก</option>
+			</select>
+		</div>
+
+		<div class="col-xs-6 col-sm-1">
+			<button onClick="show()" class="btn btn-default">แสดง</button>
+		</div>
+		<div class="container col-xs-12">
+			<hr>
+			<div id="report">
+				<center><h3>รายงานผล</h3></center>
+				<p>ตั้งแต่วันที่ .... ถึง ....</p>
+				<p>ตั้งแต่วันที่ .... ถึง ....</p>
+				<table class='table'>
+					<thead>
+					  <tr>
+						<th>วันที่</th>
+						<th>เลขที่ใบสั่งซื้อ</th>
+						<th>สถานะ</th>
+						<th>รหัสสิ้นค้า</th>
+						<th>ยี่่ห้อ</th>
+						<th>รุ้น</th>
+						<th>ชนิด</th>
+						<th>ราคา</th>
+						<th>จำนวน</th>
+					  </tr>
+					</thead>
+					<tbody id="mytable">
+
+					</tbody>
+				</table>
+			</div> 
+			<button onClick="printToPDF()" class="btn btn-default">พิมพ์</button>
 		</div>
 		
-		<form class="form-inline">
-			<div class="form-group">
-				<label class="col-2 col-form-label" for="inputdatepicker" >ตั้งแต่</label>
-				<input  id="inputdatepicker" class="datepicker" data-date-format="mm/dd/yyyy">
-			</div>
-			<div class="form-group">
-				<label class="col-2 col-form-label" for="inputdatepicker2" >ถึง</label>
-				<input id="inputdatepicker2" class="datepicker" data-date-format="mm/dd/yyyy">
-			</div>
-			<div class="form-group">
-				<label class="form-check-label">
-					<input id="allTime" onClick="checkAllTime()" type="checkbox" class="form-check-input">
-					ทุกช่วง
-				</label>
-			</div>
-		</form>
-			<div class="form-group">
-				<select class="form-control" id="selectShow">
-					<option>แสดงรายการทั้งหมด</option>
-					<option>สินค้าเข้า</option>
-					<option>สินค้าออก</option>
-				</select>
-			</div>
-			<button onClick="show()" class="btn btn-default">แสดง</button>
-			
-			<table class='table'>
-				<thead>
-				  <tr>
-					<th>วันที่</th>
-					<th>เลขที่ใบสั่งซื้อ</th>
-					<th>สถานะ</th>
-					<th>รหัสสิ้นค้า</th>
-					<th>ยี่่ห้อ</th>
-					<th>รุ้น</th>
-					<th>ชนิด</th>
-					<th>ราคา</th>
-					<th>จำนวน</th>
-				  </tr>
-				</thead>
-				<tbody id="mytable">
-					
-				</tbody>
-			</table>
 		
 	</div>
+	
 	<script>
 		function checkAllTime(){
 			var checkAllTime = document.getElementById('allTime').checked;
@@ -126,6 +156,27 @@
 			});
 			
 		}
+		
+		
+		function openCity(evt, cityName) {
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("tabcontent");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" active", "");
+			}
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+		}
+		document.getElementById("defaultOpen").click();
+		
+		function printToPDF(){
+			
+		}
+	
 	</script>
 </body>
 </html>
