@@ -35,11 +35,11 @@
 					$.each(result, function(index, element) {
 						tr = tr+'<tr>';
 						tr = tr+'<td>'+element.P_ID+'</td>';
-						tr = tr+'<td>'+element.Brand+'</td>';
-						tr = tr+'<td>'+element.Generation+'</td>';
-						tr = tr+'<td>'+element.Type+'</td>';
-						tr = tr+'<td>'+element.Price+'</td>';
-						tr = tr+'<td>'+element.Quantity +'</td>';
+						tr = tr+'<td>'+element.P_Brand+'</td>';
+						tr = tr+'<td>'+element.P_Generation+'</td>';
+						tr = tr+'<td>'+element.P_Type+'</td>';
+						tr = tr+'<td>'+element.P_Price+'</td>';
+						tr = tr+'<td>'+element.P_Quantity +'</td>';
 						tr = tr+'</tr>';
 					});
 					$("#StockTable").empty();
@@ -75,7 +75,7 @@
 					<th>ยี่่ห้อ</th>
 					<th>รุ้น</th>
 					<th>ชนิด</th>
-					<th>ราคา</th>
+					<th>ราคาขายต่อชิ้น</th>
 					<th>จำนวน</th>
 				  </tr>
 				</thead>
@@ -126,6 +126,7 @@
 				<p id="showDate"></p>
 				<p id="showIn"></p>
 				<p id="showOut"></p>
+				<p id="showSum"></p>
 				<table class='table'>
 					<thead>
 					  <tr>
@@ -136,8 +137,11 @@
 						<th>ยี่่ห้อ</th>
 						<th>รุ้น</th>
 						<th>ชนิด</th>
-						<th>ราคา</th>
 						<th>จำนวน</th>
+						<th>ราคาเข้า</th>
+						<th>ราคาออก</th>
+						<th>จำนวน</th>
+						<th>กำไร</th>
 					  </tr>
 					</thead>
 					<tbody id="mytable">
@@ -164,7 +168,7 @@
 		}
 		function converseBCTOBE(date){
 			var res = date.split("-");
-			var y = res[0]+543;
+			var y = parseInt(res[0])+543;
 			var m = res[1];
 			var d = res[2];
 			return d+'/'+m+'/'+y;
@@ -185,6 +189,9 @@
 			
 			var countIn = 0;
 			var conntOut = 0;
+			var sum = 0;
+			var sumIn = 0;
+			var sumOut = 0;
 			
 			$.ajax({
 				url:'GetDataReport.php',
@@ -195,29 +202,44 @@
 					var tr = '';
 					$.each(result, function(index, element) {
 						if(element.Status=='เข้า'){
-							countIn=countIn+parseInt(element.Quantity);
+							countIn=countIn+parseInt(element.D_Quantity);
 						}else if(element.Status=='ออก'){
-							conntOut=conntOut+parseInt(element.Quantity);
+							conntOut=conntOut+parseInt(element.D_Quantity);
 						}
 						tr = tr+'<tr>';
 						tr = tr+'<td>'+converseBCTOBE(element.Order_date)+'</td>';
 						tr = tr+'<td>'+element.O_ID+'</td>';
 						tr = tr+'<td>'+element.Status+'</td>';
 						tr = tr+'<td>'+element.P_ID+'</td>';
-						tr = tr+'<td>'+element.Brand+'</td>';
-						tr = tr+'<td>'+element.Generation+'</td>';
-						tr = tr+'<td>'+element.Type+'</td>';
-						tr = tr+'<td>'+element.Price+'</td>';
-						tr = tr+'<td>'+element.Quantity +'</td>';
+						tr = tr+'<td>'+element.P_Brand+'</td>';
+						tr = tr+'<td>'+element.P_Generation+'</td>';
+						tr = tr+'<td>'+element.P_Type+'</td>';
+						tr = tr+'<td>'+element.D_Quantity+'</td>';
+						if(element.Status=='เข้า'){
+							tr = tr+'<td>'+element.P_Price+'</td>';
+							tr = tr+'<td>'+'</td>';
+							sum = sum-parseFloat(element.P_Price);
+							sumIn=sumIn+parseFloat(element.P_Price);
+						}else{
+							tr = tr+'<td>'+'</td>';
+							tr = tr+'<td>'+element.D_Price+'</td>';
+							sum = sum+parseFloat(element.D_Price);
+							sumOut=sumOut+parseFloat(element.D_Price);
+						}
+						
+						tr = tr+'<td>'+element.D_Quantity +'</td>';
+						tr = tr+'<td>'+sum+'</td>';
 						tr = tr+'</tr>';
 					});
 					$("#mytable").empty();
 					$('#mytable').append(tr);
 					
 					$('#showIn').empty();
-					$('#showIn').append('สินค้าเข้าจำนวน '+countIn);
+					$('#showIn').append('ราคาสินค้าเข้า '+sumIn+' บาท');
 					$('#showOut').empty();
-					$('#showOut').append('สินค้าออกจำนวน '+conntOut);
+					$('#showOut').append('ราคาสินค้าออก '+sumOut+' บาท');
+					$('#showSum').empty();
+					$('#showSum').append('กำไร '+sum+' บาท');
 				}
 			});
 			

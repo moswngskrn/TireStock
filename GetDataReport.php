@@ -11,7 +11,7 @@ if($_POST['selectShow']=='สินค้าเข้า'){
 
 if($_POST['checkAllTime']=='false'){
 	$date = new Date;
-	$sql = 'SELECT orders.Order_date,orders.O_ID,orders.Status,products.P_ID,products.Brand,products.Generation,products.Type,products.Price,order_details.Quantity 
+	$sql = 'SELECT orders.Order_date,orders.O_ID,orders.Status,products.P_ID,products.P_Brand,products.P_Generation,products.P_Type,products.P_Price,order_details.D_Quantity,order_details.D_Price
 	FROM orders 
 	LEFT JOIN order_details ON order_details.ID_ORDER = orders.O_ID 
 	LEFT JOIN products ON products.P_ID = order_details.ID_PRODUCTS 
@@ -25,7 +25,7 @@ if($_POST['checkAllTime']=='false'){
 	print_r($json);
 }else{
 	require('connect.php');
-	$sql = 'SELECT orders.Order_date,orders.O_ID,orders.Status,products.P_ID,products.Brand,products.Generation,products.Type,products.Price,order_details.Quantity 
+	$sql = 'SELECT orders.Order_date,orders.O_ID,orders.Status,products.P_ID,products.P_Brand,products.P_Generation,products.P_Type,products.P_Price,order_details.D_Quantity,order_details.D_Price
 	FROM orders 
 	LEFT JOIN order_details ON order_details.ID_ORDER = orders.O_ID 
 	LEFT JOIN products ON products.P_ID = order_details.ID_PRODUCTS
