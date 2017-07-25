@@ -3,12 +3,17 @@
 <head>
 	<title>เพิ่มรายการสินค้า</title>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>		
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+
+	<script src="data_table/jquery.dataTables.min.js"></script>
+	<script src="data_table/dataTables.bootstrap.min.js"></script>		
+	<link rel="stylesheet" href="data_table/dataTables.bootstrap.min.css" />
+
+	<link href="dist/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="dist/js/bootstrap-datepicker-custom.js"></script>
+	<script src="dist/locales/bootstrap-datepicker.th.min.js" charset="UTF-8"></script>
 
 	<style>
 	body
