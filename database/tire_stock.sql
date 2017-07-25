@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 22, 2017 at 07:48 AM
+-- Generation Time: Jul 25, 2017 at 11:04 AM
 -- Server version: 5.7.17-log
 -- PHP Version: 5.6.30
 
@@ -39,10 +39,11 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `order_details` (
-  `ID` int(11) NOT NULL,
+  `D_ID` int(11) NOT NULL,
   `ID_ORDER` int(5) UNSIGNED ZEROFILL NOT NULL,
   `ID_PRODUCTS` varchar(10) NOT NULL,
-  `Quantity` int(11) NOT NULL
+  `D_Quantity` int(11) NOT NULL,
+  `D_Price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -53,11 +54,11 @@ CREATE TABLE `order_details` (
 
 CREATE TABLE `products` (
   `P_ID` varchar(10) NOT NULL,
-  `Brand` varchar(250) NOT NULL,
-  `Generation` varchar(250) NOT NULL,
-  `Type` varchar(250) NOT NULL,
-  `Quantity` int(11) NOT NULL,
-  `Price` double NOT NULL
+  `P_Brand` varchar(250) NOT NULL,
+  `P_Generation` varchar(250) NOT NULL,
+  `P_Type` varchar(250) NOT NULL,
+  `P_Quantity` int(11) NOT NULL,
+  `P_Price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -87,7 +88,13 @@ ALTER TABLE `orders`
 -- Indexes for table `order_details`
 --
 ALTER TABLE `order_details`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`D_ID`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`P_ID`);
 
 --
 -- Indexes for table `user`
@@ -103,17 +110,17 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `O_ID` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `O_ID` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `D_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `U_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `U_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
