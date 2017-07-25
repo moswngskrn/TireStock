@@ -1,0 +1,15 @@
+INSERT INTO `products`(`P_ID`, `P_Brand`, `P_Generation`, `P_Type`, `P_Quantity`, `P_Price`) VALUES ('TURANZAER33', 'Bridgestone', 'ER33', 'ยางรถยนต์', '', '');
+INSERT INTO `products`(`P_ID`, `P_Brand`, `P_Generation`, `P_Type`, `P_Quantity`, `P_Price`) VALUES ('TURANZAER30', 'Bridgestone', 'ER30', 'ยางรถยนต์', '', '');
+INSERT INTO `products`(`P_ID`, `P_Brand`, `P_Generation`, `P_Type`, `P_Quantity`, `P_Price`) VALUES ('TURANZAER370', 'Bridgestone', 'ER370', 'ยางรถยนต์', '', '');
+INSERT INTO `products`(`P_ID`, `P_Brand`, `P_Generation`, `P_Type`, `P_Quantity`, `P_Price`) VALUES ('TURANZAER300', 'Bridgestone', 'ER300', 'ยางรถยนต์', '', '');
+INSERT INTO `products`(`P_ID`, `P_Brand`, `P_Generation`, `P_Type`, `P_Quantity`, `P_Price`) VALUES ('POTENZARE030', 'Bridgestone', 'RE030', 'ยางรถยนต์', '', '');
+INSERT INTO `products`(`P_ID`, `P_Brand`, `P_Generation`, `P_Type`, `P_Quantity`, `P_Price`) VALUES ('POTENZARE88', 'Bridgestone', 'RE88', 'ยางรถยนต์', '', '');
+INSERT INTO `products`(`P_ID`, `P_Brand`, `P_Generation`, `P_Type`, `P_Quantity`, `P_Price`) VALUES ('POTENZARE080', 'Bridgestone', 'RE080', 'ยางรถยนต์', '', '');
+INSERT INTO `products`(`P_ID`, `P_Brand`, `P_Generation`, `P_Type`, `P_Quantity`, `P_Price`) VALUES ('ECOPIAEP150', 'Bridgestone', 'EP150', 'ยางรถยนต์', '', '');
+INSERT INTO `products`(`P_ID`, `P_Brand`, `P_Generation`, `P_Type`, `P_Quantity`, `P_Price`) VALUES ('TuranzaGR-100', 'Bridgestone', 'GR-100', 'ยางรถยนต์', '', '');
+INSERT INTO `products`(`P_ID`, `P_Brand`, `P_Generation`, `P_Type`, `P_Quantity`, `P_Price`) VALUES ('BridgestoneRE003', 'Bridgestone', 'RE003', 'ยางรถยนต์', '', '');
+
+
+
+
+

@@ -7,12 +7,12 @@
 
 	if(isset($_POST["search"]["value"]))
 	{
-		$query .= 'WHERE item_id LIKE "%'.$_POST["search"]["value"].'%" ';
-		$query .= 'OR item_brand LIKE "%'.$_POST["search"]["value"].'%" ';
-		$query .= 'OR item_gen LIKE "%'.$_POST["search"]["value"].'%" ';
-		$query .= 'OR item_type LIKE "%'.$_POST["search"]["value"].'%" ';
-		$query .= 'OR item_qnt LIKE "%'.$_POST["search"]["value"].'%" ';
-		$query .= 'OR item_price LIKE "%'.$_POST["search"]["value"].'%" ';
+		$query .= 'WHERE P_ID LIKE "%'.$_POST["search"]["value"].'%" ';
+		$query .= 'OR P_Brand LIKE "%'.$_POST["search"]["value"].'%" ';
+		$query .= 'OR P_Generation LIKE "%'.$_POST["search"]["value"].'%" ';
+		$query .= 'OR P_Type LIKE "%'.$_POST["search"]["value"].'%" ';
+		$query .= 'OR P_Quantity LIKE "%'.$_POST["search"]["value"].'%" ';
+		$query .= 'OR P_Price LIKE "%'.$_POST["search"]["value"].'%" ';
 	}
 
 	if($_POST["length"] != -1)
@@ -29,14 +29,14 @@
 	foreach($result as $row)
 	{
 		$sub_array = array();
-		$sub_array[] = $row["item_id"];
-		$sub_array[] = $row["item_brand"];
-		$sub_array[] = $row["item_gen"];
-		$sub_array[] = $row["item_type"];
-		$sub_array[] = $row["item_qnt"];
-		$sub_array[] = $row["item_price"];
-		$sub_array[] = '<button type="button" name="update" id="'.$row["item_id"].'" class="btn btn-warning btn-xs update">แก้ไข</button>';
-		$sub_array[] = '<button type="button" name="delete" id="'.$row["item_id"].'" class="btn btn-danger btn-xs delete">ลบ</button>';
+		$sub_array[] = $row["P_ID"];
+		$sub_array[] = $row["P_Brand"];
+		$sub_array[] = $row["P_Generation"];
+		$sub_array[] = $row["P_Type"];
+		$sub_array[] = $row["P_Quantity"];
+		$sub_array[] = $row["P_Price"];
+		$sub_array[] = '<button type="button" name="update" id="'.$row["P_ID"].'" class="btn btn-warning btn-xs update">แก้ไข</button>';
+		$sub_array[] = '<button type="button" name="delete" id="'.$row["P_ID"].'" class="btn btn-danger btn-xs delete">ลบ</button>';
 		$data[] = $sub_array;
 	}
 

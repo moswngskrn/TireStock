@@ -29,11 +29,13 @@
 		border:1px solid #ccc;
 		border-radius:10px;
 		margin-top:30px;
+		margin-bottom:100px;
 	}
 	</style>
 	
 </head>
 <body>
+	
 	<div class="container box">
 		<div class="jumbotron" align="center">
 			<h1>เพิ่มจำนวนและราคา</h1>
@@ -95,7 +97,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">เพิ่มสินค้า</h4>
+					<h4 class="modal-title">เพิ่มจำนวน / ราคา</h4>
 				</div>
 				<div class="modal-body">
 					<label>รหัสสินค้า</label>
@@ -120,7 +122,7 @@
 				<div class="modal-footer">
 					<input type="hidden" name="itemID" id="itemID" />
 					<input type="hidden" name="operation" id="operation" />
-					<input type="button" name="action" onClick='add();' id="action" class="btn btn-success" value="บันทึก" />
+					<input type="button" name="action" onClick='add_helper();' id="action" class="btn btn-success" value="บันทึก" />
 					<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
 				</div>
 			</div>
@@ -156,6 +158,25 @@
 		
 	});
 
+	function add_helper() {
+		var id = document.getElementById('item_id').value;
+		var can_add = true;
+
+		//alert(cart.length);
+		for (var i = 0; i < cart.length; i++) {
+			if (cart[i][0] == id) {
+				alert('คุณได้ทำการเลือกสินค้าชนิดนี้เพื่อทำการเพิ่มจำนวนและราคาไปแล้ว ถ้าต้องการแก้ไขกรุณากดลบที่สินค้าชิ้นนี้ด้านล่างและดำเนินการใหม่อีกครั้ง');
+				can_add = false;
+				$('#itemModal').modal('toggle');
+			}
+		}
+
+		if (can_add == true) {
+			add();
+		}
+	}
+
+
 	var cart=[];
 	var new_cart = [];
 	var temp = "";
@@ -188,8 +209,6 @@
 	
 	function del(val) {
 		//alert(val);
-
-		button_status(false, val);
 
 		new_cart = [];
 		for (var i = 0; i < cart.length; i++) {
@@ -232,27 +251,29 @@
 				$('#item_type').val(data.item_type);
 				$('#item_qnt').val(data.item_qnt);
 				$('#item_price').val(data.item_price);
-				$('.modal-title').text("แก้ไขข้อมูล");
+				$('.modal-title').text("เพิ่มจำนวน / ราคา");
 				$('#itemID').val(itm_id);
 				$('#action').val("เพิ่ม");
 				$('#operation').val("Edit");
 			}
 		})
-		button_status(true, itm_id);
 	});
 
 	function send_data() {
-		var data = [];
-		data = cart;
-		alert(data[0]);
 
+		var date = $('#inputdatepicker').val();
 
+		$.ajax({
+			url:"add_order.php",
+			method:'POST',
+			data:{cart:cart, date:date, status:"เข้า"},
+			success:function()
+			{
+				alert("ระบบดำเนินการเพิ่มจำนวนสินค้าและราคาเรียบร้อยแล้ว");
+				location.reload();
+			}
+		});
 
-	}
-
-
-	function button_status(stat, id) {
-		document.getElementById(id).disabled = stat;
 	}
 	
 	$(document).ready(function () {

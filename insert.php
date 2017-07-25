@@ -6,7 +6,7 @@
 		if($_POST["operation"] == "Add")
 		{
 			$val = $_POST["item_id"];
-			$stm = $db_connect->prepare('SELECT COUNT(*) FROM products WHERE item_id = :item_id');
+			$stm = $db_connect->prepare('SELECT COUNT(*) FROM products WHERE P_ID = :item_id');
 			$stm->bindParam(':item_id', $val, PDO::PARAM_STR);
 			$stm->execute();
 			$res = $stm->fetchColumn();
@@ -16,7 +16,7 @@
 			}
 			else {
 				$statement = $db_connect->prepare("
-					INSERT INTO products (item_id, item_brand, item_gen, item_type, item_qnt, item_price) 
+					INSERT INTO products (P_ID, P_Brand, P_Generation, P_Type, P_Quantity, P_Price) 
 					VALUES (:item_id, :item_brand, :item_gen, :item_type, :item_qnt, :item_price)
 				");
 				$result = $statement->execute(
@@ -36,13 +36,14 @@
 			}
 		}
 
+
 		if($_POST["operation"] == "Edit")
 		{
 			$statement = $db_connect->prepare(
 				"UPDATE products 
-				SET item_id = :item_id, item_brand = :item_brand, item_gen = :item_gen, item_type = :item_type, 
-					item_qnt = :item_qnt, item_price = :item_price
-				WHERE item_id = :id"
+				SET P_ID = :item_id, P_Brand = :item_brand, P_Generation = :item_gen, P_Type = :item_type, 
+					P_Quantity = :item_qnt, P_Price = :item_price
+				WHERE P_ID = :id"
 			);
 			$result = $statement->execute(
 				array(
