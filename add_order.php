@@ -34,9 +34,12 @@ if($status=='เข้า'){
 		$stmt_detail_detail=$db_connect->prepare($sql_detail_detail);
 		$stmt_detail_detail->execute();
 	}
+	
+	echo "ระบบดำเนินการเพิ่มจำนวนสินค้าและราคาเรียบร้อยแล้ว";
 }
 
 if($status=='ออก'){
+	$can_sell = true;
 	for($i=0;$i<count($dataCart);$i++){
 		//Get Quantity Old
 		$sql_product = 'SELECT P_Quantity FROM products WHERE P_ID="'.$dataCart[$i][0].'"';
@@ -46,17 +49,31 @@ if($status=='ออก'){
 		$Quantity = $row['P_Quantity'];
 		
 		$Quantity = $Quantity - $dataCart[$i][1];
-		$okResult = $Quantity;
-		//Update new Quantity
-		$sql_product_update = 'UPDATE `products` SET `P_Quantity`='.$Quantity.' WHERE P_ID="'.$dataCart[$i][0].'"';
-		$stmt_product_update = $db_connect->prepare($sql_product_update);
-		$stmt_product_update->execute();
-		
-		//Inser new order detail
-		$sql_detail_detail = 'INSERT INTO `order_details`(`ID_ORDER`, `ID_PRODUCTS`, `D_Quantity`, `D_Price`) VALUES ("'.$id_order.'","'.$dataCart[$i][0].'",'.$dataCart[$i][1].','.$dataCart[$i][2].')';
-		$stmt_detail_detail=$db_connect->prepare($sql_detail_detail);
-		$stmt_detail_detail->execute();
+
+		if ($Quantity < 0) {
+			$can_sell = false;
+		}
+		else {
+			$okResult = $Quantity;
+			//Update new Quantity
+			$sql_product_update = 'UPDATE `products` SET `P_Quantity`='.$Quantity.' WHERE P_ID="'.$dataCart[$i][0].'"';
+			$stmt_product_update = $db_connect->prepare($sql_product_update);
+			$stmt_product_update->execute();
+			
+			//Inser new order detail
+			$sql_detail_detail = 'INSERT INTO `order_details`(`ID_ORDER`, `ID_PRODUCTS`, `D_Quantity`, `D_Price`) VALUES ("'.$id_order.'","'.$dataCart[$i][0].'",'.$dataCart[$i][1].','.$dataCart[$i][2].')';
+			$stmt_detail_detail=$db_connect->prepare($sql_detail_detail);
+			$stmt_detail_detail->execute();
+		}
 	}
+
+	if ($can_sell == true) {
+		echo "ดำเนินการขายเรียบร้อยแล้ว";
+	}
+	else {
+		echo "ระบบไม่สามารถดำเนินการขายได้เนื่องจากจำนวนสินค้าไม่เพียงพอ กรุณาทำรายการใหม่";
+	}
+
 }
 
 

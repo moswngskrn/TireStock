@@ -35,7 +35,7 @@
 		$sub_array[] = $row["P_Type"];
 		$sub_array[] = $row["P_Quantity"];
 		$sub_array[] = $row["P_Price"];
-		$sub_array[] = '<button type="button" name="update" id="'.$row["P_ID"].'" class="btn btn-sm btn-info update">เพิ่มจำนวน / ราคา</button>';
+		$sub_array[] = '<button type="button" name="update" id="'.$row["P_ID"].'" class="btn btn-sm btn-info update">'.$_POST["status"].'</button>';
 		$data[] = $sub_array;
 	}
 

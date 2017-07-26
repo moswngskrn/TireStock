@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>เพิ่มจำนวนและราคา</title>
+	<title>ขายสินค้า</title>
 
 	<script src="js/jquery.min.js"></script>
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
@@ -39,7 +39,7 @@
 	
 	<div class="container box">
 		<div class="jumbotron" align="center">
-			<h1>เพิ่มจำนวนและราคา</h1>
+			<h1>ขายสินค้า</h1>
 		</div>
 		<div class="table-responsive">
 			<table id="item_data" class="table table-striped">
@@ -51,7 +51,7 @@
 						<th width="10%">ชนิดสินค้า</th>
 						<th width="10%">จำนวน</th>
 						<th width="10%">ราคา</th>
-						<th width="10%">ราคา / จำนวน</th>
+						<th width="10%">ขายสินค้า</th>
 					</tr>
 				</thead>
 			</table>
@@ -113,7 +113,7 @@
 					<label>ประเภทสินค้า</label>
 					<input type="text" name="item_type" id="item_type" class="form-control" disabled/>
 					<br/>
-					<label>จำนวนสินค้าที่ต้องการเพิ่ม</label>
+					<label>จำนวนสินค้าที่ต้องการขาย</label>
 					<input type="number" name="item_qnt" id="item_qnt" class="form-control" />
 					<br/>
 					<label>ราคาสินค้า</label>
@@ -148,7 +148,7 @@
 			"ajax":{
 				url:"fetch_for_additem.php",
 				type:"POST",
-				data:{status:"เพิ่มจำนวน / ราคา"},
+				data:{status:"ขาย"},
 			},
 			"columnDefs":[
 				{
@@ -167,7 +167,7 @@
 		//alert(cart.length);
 		for (var i = 0; i < cart.length; i++) {
 			if (cart[i][0] == id) {
-				alert('คุณได้ทำการเลือกสินค้าชนิดนี้เพื่อทำการเพิ่มจำนวนและราคาไปแล้ว ถ้าต้องการแก้ไขกรุณากดลบที่สินค้าชิ้นนี้ด้านล่างและดำเนินการใหม่อีกครั้ง');
+				alert('คุณได้ทำการเลือกสินค้าชนิดนี้เพื่อทำการขายไปแล้ว ถ้าต้องการแก้ไขกรุณากดลบที่สินค้าชิ้นนี้ด้านล่างและดำเนินการใหม่อีกครั้ง');
 				can_add = false;
 				$('#itemModal').modal('toggle');
 			}
@@ -253,9 +253,9 @@
 				$('#item_type').val(data.item_type);
 				$('#item_qnt').val("");
 				$('#item_price').val(data.item_price);
-				$('.modal-title').text("เพิ่มจำนวน / ราคา");
+				$('.modal-title').text("ขายสินค้า");
 				$('#itemID').val(itm_id);
-				$('#action').val("เพิ่ม");
+				$('#action').val("ขาย");
 				$('#operation').val("Edit");
 			}
 		})
@@ -268,7 +268,7 @@
 		$.ajax({
 			url:"add_order.php",
 			method:'POST',
-			data:{cart:cart, date:date, status:"เข้า"},
+			data:{cart:cart, date:date, status:"ออก"},
 			success:function(msg)
 			{
 				alert(msg);
