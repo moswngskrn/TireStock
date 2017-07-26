@@ -3,12 +3,17 @@
 <head>
 	<title>เพิ่มรายการสินค้า</title>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>		
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+
+	<script src="data_table/jquery.dataTables.min.js"></script>
+	<script src="data_table/dataTables.bootstrap.min.js"></script>		
+	<link rel="stylesheet" href="data_table/dataTables.bootstrap.min.css" />
+
+	<link href="dist/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="dist/js/bootstrap-datepicker-custom.js"></script>
+	<script src="dist/locales/bootstrap-datepicker.th.min.js" charset="UTF-8"></script>
 
 	<style>
 	body
@@ -25,6 +30,7 @@
 		border:1px solid #ccc;
 		border-radius:10px;
 		margin-top:30px;
+		margin-bottom: 100px;
 	}
 	</style>
 	
@@ -39,14 +45,14 @@
 			<table id="item_data" class="table table-striped">
 				<thead>
 					<tr>
-						<th width="10%">รหัสสินค้า</th>
-						<th width="10%">ยี่ห้อสินค้า</th>
-						<th width="10%">รุ่นสินค้า</th>
-						<th width="10%">ชนิดสินค้า</th>
-						<th width="10%">จำนวน</th>
-						<th width="10%">ราคา</th>
-						<th width="3%">แก้ไข</th>
-						<th width="3%">ลบ</th>
+						<th>รหัสสินค้า</th>
+						<th>ยี่ห้อสินค้า</th>
+						<th>รุ่นสินค้า</th>
+						<th>ชนิดสินค้า</th>
+						<th>จำนวน</th>
+						<th>ราคา</th>
+						<th>แก้ไข</th>
+						<th>ลบ</th>
 					</tr>
 				</thead>
 			</table>
@@ -76,12 +82,9 @@
 					<label>ประเภทสินค้า</label>
 					<input type="text" name="item_type" id="item_type" class="form-control" />
 					<br/>
-					<label>จำนวนสินค้า</label>
-					<input type="number" name="item_qnt" id="item_qnt" class="form-control" />
-					<br/>
-					<label>ราคาสินค้า</label>
-					<input type="number" name="item_price" id="item_price" class="form-control" />
-					<br/>
+
+					<input type="hidden" name="item_qnt" id="item_qnt" class="form-control" />
+					<input type="hidden" name="item_price" id="item_price" class="form-control" />
 				</div>
 				<div class="modal-footer">
 					<input type="hidden" name="itemID" id="itemID" />
@@ -116,6 +119,11 @@ $(document).ready(function(){
 				"targets":[0, 1, 2, 3, 4, 5, 6, 7],
 				"orderable":false,
 			},
+			{
+				"targets":[4, 5],
+				"visible": false,
+				"searchable": false
+			}
 		],
 	});
 
