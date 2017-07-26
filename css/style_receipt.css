@@ -1,0 +1,23 @@
+/* CSS Document */
+body{
+	margin: auto;
+	text-align: center;
+}
+.cont{
+	width:100%;
+	position:relative;
+	top: 50px;
+}
+.num-date{
+	width:200px;
+	height:70px;
+	position:absolute;
+	right:0px;
+	top:0px;
+	text-align: left;
+}
+
+.address{
+	text-align: left;
+	padding: 50px;
+}

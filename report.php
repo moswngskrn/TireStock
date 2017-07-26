@@ -1,3 +1,9 @@
+<?php 
+	session_start();
+	if(!isset($_SESSION['login'])){
+		header('Location: login.php');
+	}
+?>
 <!doctype html>
 <html>
 <head>
@@ -60,6 +66,7 @@
 	<div class="tab">
 		<button class="tablinks" onclick="openCity(event, 'Stock')" id="defaultOpen">สินค้าใน Stock</button>
 		<button class="tablinks" onclick="openCity(event, 'Order')">สินค้าเข้า-ออก</button>
+		<button class="tablinks" onclick="gotoPage('index.php')">กลับสู่หน้าหลัก</button>
 	</div>
 
 	<div id="Stock" class="tabcontent">
@@ -137,7 +144,6 @@
 						<th>ยี่่ห้อ</th>
 						<th>รุ้น</th>
 						<th>ชนิด</th>
-						<th>จำนวน</th>
 						<th>ราคาเข้า</th>
 						<th>ราคาออก</th>
 						<th>จำนวน</th>
@@ -214,12 +220,11 @@
 						tr = tr+'<td>'+element.P_Brand+'</td>';
 						tr = tr+'<td>'+element.P_Generation+'</td>';
 						tr = tr+'<td>'+element.P_Type+'</td>';
-						tr = tr+'<td>'+element.D_Quantity+'</td>';
 						if(element.Status=='เข้า'){
-							tr = tr+'<td>'+element.P_Price+'</td>';
+							tr = tr+'<td>'+element.D_Price+'</td>';
 							tr = tr+'<td>'+'</td>';
-							sum = sum-parseFloat(element.P_Price);
-							sumIn=sumIn+parseFloat(element.P_Price);
+							sum = sum-parseFloat(element.D_Price);
+							sumIn=sumIn+parseFloat(element.D_Price);
 						}else{
 							tr = tr+'<td>'+'</td>';
 							tr = tr+'<td>'+element.D_Price+'</td>';
@@ -247,7 +252,7 @@
 		
 		function printDiv(id){
 			var divPrint = document.getElementById(id);
-			var newWin=window.open('','Print-Window');
+			var newWin=window.open('','PrintWindow');
 			newWin.document.write('<html><head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"><script src="js/jquery.min.js"><\/script><script src="bootstrap/js/bootstrap.min.js"><\/script></head><body onload="window.print()">'+divPrint.innerHTML+'</body></html>');
 			newWin.document.close();
 			setTimeout(function(){
@@ -271,6 +276,9 @@
 		}
 		document.getElementById("defaultOpen").click();
 		
+		function gotoPage(page){
+			window.location.href = page;
+		}
 		
 	
 	</script>

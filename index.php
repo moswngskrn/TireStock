@@ -1,3 +1,9 @@
+<?php 
+	session_start();
+	if(!isset($_SESSION['login'])){
+		header('Location: login.php');
+	}
+?>
 <!doctype html>
 <html>
 <head>
@@ -16,6 +22,16 @@
 			<h1>Stock</h1>      
 			<p>..............</p>
 		</div>
+		
+		<a href="report.php"><button type="button" class="btn btn-default col-xs-3">Report</button></a>
+		<a href="logout.php"><button type="button" class="btn btn-default col-xs-3">Logout</button></a>
 	</div>
 </body>
+<script>
+	function gotoPage(page){
+		window.open(page,"name","menubar=no,channelmode=no,location=no,directories=no,toolbar=no,status=no,resizable=no,scrollbars=no,menubar=no,height=600,width=900");
+		window.close();
+							
+	}
+</script>
 </html>

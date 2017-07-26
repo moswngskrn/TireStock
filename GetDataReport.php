@@ -16,7 +16,7 @@ if($_POST['checkAllTime']=='false'){
 	LEFT JOIN order_details ON order_details.ID_ORDER = orders.O_ID 
 	LEFT JOIN products ON products.P_ID = order_details.ID_PRODUCTS 
 	WHERE orders.Order_date>="'.$date->converseBEToBC($_POST['from']).'" AND orders.Order_date<="'.$date->converseBEToBC($_POST['to']).'" AND '.$selectShow.' 
-	ORDER BY orders.Order_date ASC';
+	ORDER BY orders.Order_date ASC,orders.O_ID';
 	
 	$stmt = $db_connect->prepare($sql);
 	$stmt->execute();
@@ -30,7 +30,7 @@ if($_POST['checkAllTime']=='false'){
 	LEFT JOIN order_details ON order_details.ID_ORDER = orders.O_ID 
 	LEFT JOIN products ON products.P_ID = order_details.ID_PRODUCTS
 	WHERE '.$selectShow.'
-	ORDER BY orders.Order_date ASC';
+	ORDER BY orders.Order_date ASC,orders.O_ID';
 	$stmt = $db_connect->prepare($sql);
 	$stmt->execute();
 	$results=$stmt->fetchAll(PDO::FETCH_ASSOC);

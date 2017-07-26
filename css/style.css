@@ -52,3 +52,15 @@ div.tab button.active {
     border-left: none;
     height: auto;
 }
+
+.center_div {
+	display: block;
+    align-items: center;
+}
+
+.form-margin{
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%);
+	margin-top: 50px;
+}
