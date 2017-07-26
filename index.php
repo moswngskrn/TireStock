@@ -23,7 +23,10 @@
 			<p>..............</p>
 		</div>
 		
-		<a href="report.php"><button type="button" class="btn btn-default col-xs-3">Report</button></a>
+		<a href="report.php" target="_blank"><button type="button" class="btn btn-default col-xs-3">Report</button></a>  
+		<a href="manage.php" target="_blank"><button type="button" class="btn btn-default col-xs-3">เพิ่มรายการสินค้า</button></a> 
+		<a href="add_item.php" target="_blank"><button type="button" class="btn btn-default col-xs-3">เพิ่มจำนวนและราคาสินค้า</button></a> 
+		<a href="sell_item.php" target="_blank"><button type="button" class="btn btn-default col-xs-3">ขายสินค้า</button></a> 
 		<a href="logout.php"><button type="button" class="btn btn-default col-xs-3">Logout</button></a>
 	</div>
 </body>
