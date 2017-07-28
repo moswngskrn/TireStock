@@ -27,17 +27,20 @@
 			<form class="col-xs-12 col-sm-4  form-margin" action="login.php" method="post">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input id="username" type="text" class="form-control" name="username" placeholder="Username">
+					<input id="user" type="text" class="form-control" name="user" placeholder="ชื่อผู้ใช้งาน">
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-					<input id="password" type="password" class="form-control" name="password" placeholder="Password">
+					<input id="password" type="password" class="form-control" name="password" placeholder="รหัสผ่าน">
 				</div><br>
-				<button type="submit" class="btn btn-default col-xs-12">Login</button>
+				<button type="submit" class="btn btn-default col-xs-12">เข้าสู่ระบบ</button>
 				<?php 
 					require('connect.php');
-					if($_POST['username'] && $_POST['password']){
-						$sql = 'SELECT * FROM `user` WHERE Username="'.$_POST['username'].'" && Password="'.$_POST['password'].'"';
+					
+					$get_id = (isset($_POST['user'])) ? $_POST['user'] : '';
+					
+					if($get_id && $_POST['password']){
+						$sql = 'SELECT * FROM `user` WHERE Username="'.$_POST['user'].'" && Password="'.$_POST['password'].'"';
 						$stmt = $db_connect->prepare($sql);
 						$stmt->execute();
 						$number_of_rows = $stmt->fetchColumn(); 
@@ -48,6 +51,7 @@
 							header('Location: index.php');
 						}
 					}
+					//var_dump($_POST);
 				?>
 			</form>
 		</div>

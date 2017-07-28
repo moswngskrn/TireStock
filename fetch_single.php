@@ -4,12 +4,14 @@ include('connect.php');
 
 if(isset($_POST["itm_id"]))
 {
+
 	$output = array();
 	$statement = $db_connect->prepare(
 		"SELECT * FROM products
 		WHERE P_ID = '".$_POST["itm_id"]."' 
 		LIMIT 1"
 	);
+
 	$statement->execute();
 	$result = $statement->fetchAll();
 	foreach($result as $row)

@@ -30,6 +30,7 @@ if($status=='เข้า'){
 		$stmt_product_update->execute();
 		
 		//Inser new order detail
+		//echo $dataCart[$i][2];
 		$sql_detail_detail = 'INSERT INTO `order_details`(`ID_ORDER`, `ID_PRODUCTS`, `D_Quantity`, `D_Price`) VALUES ("'.$id_order.'","'.$dataCart[$i][0].'",'.$dataCart[$i][1].','.$dataCart[$i][2].')';
 		$stmt_detail_detail=$db_connect->prepare($sql_detail_detail);
 		$stmt_detail_detail->execute();

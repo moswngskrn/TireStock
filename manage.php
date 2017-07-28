@@ -15,6 +15,9 @@
     <script src="dist/js/bootstrap-datepicker-custom.js"></script>
 	<script src="dist/locales/bootstrap-datepicker.th.min.js" charset="UTF-8"></script>
 
+	<script src="sweetalert/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="sweetalert/sweetalert.css">
+
 	<style>
 	body
 	{
@@ -36,6 +39,32 @@
 	
 </head>
 <body>
+
+	
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.php">หน้าหลัก</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li  class="active"><a href="manage.php">รายการสินค้า</a></li>
+            <li><a href="add_item.php">เพิ่มจำนวนสินค้าและราคา</a></li>
+			<li><a href="sell_item.php">ขายสินค้า</a></li>
+			<li><a href="cancel_order.php">ยกเลิกรายการ</a></li>
+			<li><a href="report.php">รายงานผล</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
 	<div class="container box">
 		<div class="jumbotron" align="center">
 			<h1>รายการสินค้า</h1>
@@ -72,16 +101,16 @@
 				<div class="modal-body">
 					<label>รหัสสินค้า</label>
 					<input type="text" name="item_id" id="item_id" class="form-control" />
-					<br/>
+					
 					<label>ยี่ห้อสินค้า</label>
 					<input type="text" name="item_brand" id="item_brand" class="form-control" />
-					<br/>
+					
 					<label>รุ่นสินค้า</label>
 					<input type="text" name="item_gen" id="item_gen" class="form-control" />
-					<br/>
+					
 					<label>ประเภทสินค้า</label>
 					<input type="text" name="item_type" id="item_type" class="form-control" />
-					<br/>
+					
 
 					<input type="hidden" name="item_qnt" id="item_qnt" class="form-control" />
 					<input type="hidden" name="item_price" id="item_price" class="form-control" />
@@ -96,6 +125,24 @@
 		</form>
 	</div>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="warnModal">
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="warn-modal-title">Modal title</h4>
+	</div>
+	<div class="modal-body">
+		<div id="md_body_ctn">
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+	</div>
+	</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <script type="text/javascript" language="javascript" >
 $(document).ready(function(){
@@ -127,6 +174,13 @@ $(document).ready(function(){
 		],
 	});
 
+	function modal_alert(title, msg)
+	{
+		$('#warnModal').modal('show');
+		$('.warn-modal-title').text(title);
+		$('#md_body_ctn').text(msg);
+	}
+
 	$(document).on('submit', '#item_form', function(event){
 		event.preventDefault();
 
@@ -147,7 +201,7 @@ $(document).ready(function(){
 				processData:false,
 				success:function(data)
 				{
-					alert(data);
+					modal_alert('แจ้งเตือน', data);
 					$('#item_form')[0].reset();
 					$('#itemModal').modal('hide');
 					dataTable.ajax.reload();
@@ -156,10 +210,9 @@ $(document).ready(function(){
 		}
 		else
 		{
-			alert("กรุณาใส่ข้อมูล");
+			modal_alert("แจ้งเตือน", "กรุณาใส่ข้อมูล");
 		}
 	});
-
 
 	$(document).on('click', '.delete', function(){
 		var item_id = $(this).attr("id");
