@@ -108,7 +108,7 @@
 		<div class="jumbotron" align="center">
 			<h1>ยกเลิกรายการ</h1>
 		</div>
-		<center><h3>ยอดคงเหลือ</h3></center>
+		<center><h3>รายการ</h3></center>
 			<table class='table'>
 				<thead>
 				  <tr>
