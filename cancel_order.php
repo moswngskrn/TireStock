@@ -132,7 +132,7 @@
 				type: 'warning',
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',
-				confirmButtonText:'ยกเลิก',
+				cancelButtonText:'ยกเลิก',
 				cancelButtonColor: '#d33',
 				confirmButtonText: 'ใช่',
 				closeOnConfirm: false
